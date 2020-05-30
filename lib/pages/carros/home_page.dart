@@ -1,6 +1,10 @@
 import 'package:br/drawer_list.dart';
-import 'package:br/pages/carro/carros_api.dart';
-import 'package:br/pages/carro/carros_listview.dart';
+import 'package:br/pages/carros/carro_form_page.dart';
+import 'package:br/pages/carros/carros_api.dart';
+import 'package:br/pages/carros/carros_page.dart';
+import 'package:br/pages/favoritos/favoritos_page.dart';
+import 'package:br/utils/alert.dart';
+import 'package:br/utils/nav.dart';
 import 'package:br/utils/prefs.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +31,7 @@ class _HomePageState extends State<HomePage>
 
     // Depois cria o TabController
     // No método build na primeira vez ele poderá estar nulo
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
 
     // Agora que temos o TabController e o índice da tab,
     // chama o setState para redesenhar a tela
@@ -52,12 +56,19 @@ class _HomePageState extends State<HomePage>
           tabs: [
             Tab(
               text: "Clássicos",
+              icon: Icon(Icons.directions_car),
             ),
             Tab(
               text: "Esportivos",
+              icon: Icon(Icons.directions_car),
             ),
             Tab(
               text: "Luxo",
+              icon: Icon(Icons.directions_car),
+            ),
+            Tab(
+              text: "Favoritos",
+              icon: Icon(Icons.favorite),
             )
           ],
         ),
@@ -69,12 +80,21 @@ class _HomePageState extends State<HomePage>
           : TabBarView(
         controller: _tabController,
         children: [
-          CarrosListView(TipoCarro.classicos),
-          CarrosListView(TipoCarro.esportivos),
-          CarrosListView(TipoCarro.luxo),
+          CarrosPage(TipoCarro.classicos),
+          CarrosPage(TipoCarro.esportivos),
+          CarrosPage(TipoCarro.luxo),
+          FavoritosPage(),
         ],
       ),
       drawer: DrawerList(),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: _onClickAdicionarCarro,
+      ),
     );
+  }
+
+  void _onClickAdicionarCarro() {
+    push(context, CarroFormPage());
   }
 }

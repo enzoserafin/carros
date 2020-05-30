@@ -2,7 +2,7 @@
 import 'dart:async';
 
 import 'package:br/pages/api_response.dart';
-import 'package:br/pages/carro/simple_bloc.dart';
+import 'package:br/pages/carros/simple_bloc.dart';
 import 'package:br/pages/login/login_api.dart';
 import 'package:br/pages/login/usuario.dart';
 
